@@ -1,0 +1,6 @@
+{
+  "name": "Scrapbook Travel Itinerary PDF Generator",
+  "description": "Create, customize, and print beautiful scrapbook-style travel itineraries with vintage stamps, polaroids, washi tape, and clean A4 PDF export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

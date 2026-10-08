@@ -1,0 +1,708 @@
+@import "tailwindcss";
+
+/* ===== ItineraryPDF Styles — Scrapbook Professional ===== */
+
+/* Base font families */
+body {
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2c2c2c;
+  background-color: #f4eee5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.font-serif-vintage {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans-clean {
+  font-family: 'Lato', sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+
+/* ---------- PAGE SETUP ---------- */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    background: #faf6f0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-area {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .pdf-page {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    height: 297mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+}
+
+/* ---------- CONTAINER ---------- */
+.print-area {
+  font-family: "Playfair Display", Georgia, serif;
+  color: #2c2c2c;
+  background: #faf6f0;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ---------- BASE PAGE ---------- */
+.pdf-page {
+  width: 100%;
+  min-height: 1050px;
+  padding: 44px 50px;
+  position: relative;
+  background: #faf6f0;
+  box-sizing: border-box;
+
+  /* Subtle paper texture */
+  background-image:
+    radial-gradient(#e7dfd5 0.75px, transparent 0.75px),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(0,0,0,0.015) 28px,
+      rgba(0,0,0,0.015) 29px
+    );
+  background-size: 24px 24px, 100% 29px;
+}
+
+/* ---------- COVER PAGE ---------- */
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  border: 3px double #7d9b76;
+  margin: 0;
+  padding: 50px 45px;
+  min-height: 1050px;
+  box-sizing: border-box;
+}
+
+.cover-label {
+  font-family: "Lato", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #7d9b76;
+  margin-bottom: 12px;
+}
+
+.cover-title {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.cover-divider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 24px 0;
+  color: #c4917e;
+  font-size: 14px;
+}
+
+.divider-line {
+  display: inline-block;
+  width: 120px;
+  height: 1px;
+  background: #c4917e;
+}
+
+.cover-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  background: rgba(125, 155, 118, 0.12);
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(125, 155, 118, 0.35);
+}
+
+.detail-item svg {
+  color: #7d9b76;
+}
+
+.cover-quote {
+  margin-top: 25px;
+  font-style: italic;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+/* Cover polaroid showcase */
+.cover-polaroid {
+  background: #fff;
+  padding: 10px 10px 30px 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: rotate(-1.5deg);
+  width: 320px;
+  margin: 15px auto;
+  border: 1px solid #ede4d8;
+  position: relative;
+}
+
+.cover-polaroid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-polaroid p {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: #444;
+  margin-top: 10px;
+}
+
+/* ---------- WASHI TAPE ---------- */
+.washi-tape {
+  position: absolute;
+  height: 38px;
+  opacity: 0.82;
+  z-index: 2;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.06);
+}
+
+.tape-1 {
+  top: 22px;
+  left: -15px;
+  width: 170px;
+  background: repeating-linear-gradient(
+    45deg,
+    #f0c8c0 0 10px,
+    #faf6f0 10px 20px
+  );
+  transform: rotate(-3deg);
+  border-radius: 2px;
+}
+
+.tape-2 {
+  bottom: 35px;
+  right: -10px;
+  width: 190px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #c8e0c0 0 8px,
+    #faf6f0 8px 16px
+  );
+  transform: rotate(2deg);
+  border-radius: 2px;
+}
+
+.tape-3 {
+  top: 25px;
+  right: -8px;
+  width: 150px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e8dcc0 0 12px,
+    #faf6f0 12px 24px
+  );
+  transform: rotate(5deg);
+  border-radius: 2px;
+}
+
+.tape-sage {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(125, 155, 118, 0.45) 0 10px,
+    rgba(250, 246, 240, 0.9) 10px 20px
+  );
+}
+
+.tape-rose {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(196, 145, 126, 0.45) 0 10px,
+    rgba(250, 246, 240, 0.9) 10px 20px
+  );
+}
+
+/* ---------- VINTAGE STAMP ---------- */
+.vintage-stamp {
+  position: absolute;
+  top: 35px;
+  right: 45px;
+  width: 90px;
+  height: 90px;
+  border: 3px dashed #c4917e;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(14deg);
+  opacity: 0.75;
+  background: rgba(250, 246, 240, 0.4);
+}
+
+.vintage-stamp span {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.vintage-stamp small {
+  font-family: "Lato", sans-serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #c4917e;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.postmark-badge {
+  border: 2px solid #7d9b76;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: "Lato", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7d9b76;
+  display: inline-block;
+  transform: rotate(-3deg);
+}
+
+/* ---------- CORNER DOODLES ---------- */
+.corner-doodle {
+  position: absolute;
+  font-size: 30px;
+  color: #7d9b76;
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+}
+.corner-doodle.tl { top: 15px; left: 25px; }
+.corner-doodle.tr { top: 15px; right: 25px; transform: rotate(90deg); }
+.corner-doodle.bl { bottom: 15px; left: 25px; transform: rotate(-90deg); }
+.corner-doodle.br { bottom: 15px; right: 25px; transform: rotate(180deg); }
+
+/* ---------- PAGE HEADER ---------- */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #7d9b76;
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.page-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0;
+}
+
+.header-sticker {
+  font-size: 24px;
+  background: #e8d5c4;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transform: rotate(-5deg);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.08);
+}
+
+.page-tagline {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: #7d9b76;
+  font-weight: 600;
+}
+
+/* ---------- TORN PAPER EFFECT ---------- */
+.torn-paper {
+  background: #fffdf8;
+  padding: 24px 28px;
+  position: relative;
+  box-shadow: 3px 4px 16px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 2px;
+}
+
+.torn-paper::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #faf6f0 0 4px,
+    transparent 4px 8px
+  );
+}
+
+/* ---------- SUMMARY PAGE ---------- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 26px;
+  margin-bottom: 28px;
+  align-items: start;
+}
+
+.polaroid {
+  background: #fff;
+  padding: 12px 12px 34px 12px;
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.12);
+  transform: rotate(-2.5deg);
+  text-align: center;
+  border: 1px solid #eae1d5;
+  transition: transform 0.2s ease;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid p {
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  color: #444;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.summary-text p {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #444;
+}
+
+/* ---------- BUDGET TABLE ---------- */
+.budget-section {
+  margin-top: 24px;
+}
+
+.section-label {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  color: #7d9b76;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Lato", sans-serif;
+  background: #fffdf8;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.budget-table th {
+  background: #7d9b76;
+  color: #fff;
+  padding: 11px 18px;
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.budget-table td {
+  padding: 12px 18px;
+  border-bottom: 1px dashed #e6ded3;
+  font-size: 14px;
+  color: #555;
+}
+
+.budget-table tr:nth-child(even) {
+  background: rgba(125, 155, 118, 0.05);
+}
+
+.total-row td {
+  background: rgba(196, 145, 126, 0.12) !important;
+  font-size: 16px;
+  border-top: 2px solid #c4917e;
+  color: #2c2c2c;
+}
+
+/* ---------- DAY CARD ---------- */
+.day-card {
+  margin-bottom: 24px;
+}
+
+.time-slot {
+  padding: 16px 0;
+  border-bottom: 1px dashed #e0d8ce;
+}
+
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.slot-label {
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7d9b76;
+  background: rgba(125, 155, 118, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.slot-cost {
+  font-family: "Lato", sans-serif;
+  font-size: 13px;
+  color: #c4917e;
+  font-weight: 700;
+}
+
+.slot-body {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.slot-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.slot-title {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #2c2c2c;
+}
+
+.slot-desc {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #555;
+  margin: 0;
+}
+
+/* ---------- TIPS PAGE ---------- */
+.tips-list {
+  margin-bottom: 28px;
+}
+
+.tip-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 13px 0;
+  border-bottom: 1px dashed #e0d8ce;
+}
+
+.tip-number {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #c4917e;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196, 145, 126, 0.14);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tip-item p {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #555;
+  margin: 3px 0 0;
+}
+
+/* ---------- NOTES AREA ---------- */
+.notes-area {
+  margin-bottom: 24px;
+}
+
+.notes-area h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  color: #2c2c2c;
+  margin: 0 0 16px;
+}
+
+.note-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+}
+
+.note-line {
+  height: 1px;
+  background: #d4ccc2;
+  width: 100%;
+}
+
+.handwritten-content {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  line-height: 28px;
+  color: #233446;
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  right: 10px;
+  white-space: pre-line;
+  pointer-events: none;
+}
+
+/* ---------- FOOTER ---------- */
+.pdf-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 2px solid #7d9b76;
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ---------- DOWNLOAD BUTTON (Floating) ---------- */
+.download-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #7d9b76;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(125, 155, 118, 0.45);
+  transition: all 0.25s ease;
+  z-index: 50;
+}
+
+.download-btn:hover {
+  background: #6a8863;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(125, 155, 118, 0.55);
+}
+
+.download-btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- RESPONSIVE SCREEN ADJUSTMENTS ---------- */
+@media screen and (max-width: 768px) {
+  .pdf-page {
+    padding: 30px 20px;
+    min-height: auto;
+  }
+  .cover-title {
+    font-size: 42px;
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .cover-details {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cover-polaroid {
+    width: 100%;
+    max-width: 280px;
+  }
+}
